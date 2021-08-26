@@ -52,7 +52,7 @@ const signupResturant = (e) => {
 			// window.location.href = "dashboard/dashboard.html";
 			alert("Signup Sucessfully");
 			setTimeout(function () {
-				window.location.href = 'index.html';
+				window.location.href = '../index.html';
 			}, 4000);
 		})
 		.catch((error) => {
@@ -77,7 +77,7 @@ const login = (e) => {
 				var user = userCredential.user;
 				localStorage.setItem("uid", user.uid);
 				localStorage.setItem("email", email);
-				window.location.href = "addDishes.html";
+				window.location.href = "resturant/addDishes.html";
 			})
 			.catch((error) => {
 				var errorCode = error.code;
@@ -117,23 +117,22 @@ const addDishes = (e) => {
 		price,
 		deliveryType
 	}
-
 	firebase.database().ref(`Resturants/${uid}/categories`).child(obj.category).push(obj);
 
-	// setTimeout(function () {
-		// alert("Dish Added");
-		// location.reload();
-	// }, 1000)
-	// firebase.database().ref("Resturants").child(`${replaceValue}`).push(obj);
-	// firebase.database().ref(`Resturants/${uid}/categories`).child("chinese").on('value', function (data) {
-	// 	console.log(data.val())
-	// })
+	setTimeout(function () {
+		alert("Dish Added");
+
+	}, 3000)
+	firebase.database().ref("Resturants").child(`${replaceValue}`).push(obj);
+	firebase.database().ref(`Resturants/${uid}/categories`).child("chinese").on('value', function (data) {
+		console.log(data.val())
+	})
 
 }
 
 const logoutAdmin = () => {
 	firebase.auth().signOut().then(() => {
-		window.location.href = "index.html";
+		window.location.href = "../index.html";
 	}).catch((error) => {
 		// An error happened.
 	});

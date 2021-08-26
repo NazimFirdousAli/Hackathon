@@ -19,10 +19,10 @@ const signupUser = (e) => {
 		city,
 		password
 	}
-	firebase.database().ref("Users").child("Data").push(obj);
-
+	
 	firebase.auth().createUserWithEmailAndPassword(email, password)
-		.then((userCredential) => {
+	.then((userCredential) => {
+			firebase.database().ref("Users").child("Data").push(obj);
 			var user = userCredential.user;
 			// localStorage.setItem("adminEmail", user.bc.email);
 			// window.location.href = "dashboard/dashboard.html";
@@ -39,7 +39,7 @@ const signupUser = (e) => {
 var arr = [];
 
 const loadResturant = () => {
-	firebase.database().ref(`Resturants`).on('child_added', function (data) {
+	firebase.database().ref(`Resturants`).on('value', function (data) {
 		// console.log(data.val().categories);
 		arr.push(data.val());
 
@@ -48,13 +48,13 @@ const loadResturant = () => {
 	let main = document.getElementById('products');
 	setTimeout(() => {
 		for (var i = 0; i < arr.length; i++) {
-			// console.log(arr[i].categories);
+			// console.log(Object.keys(arr[i]));
 			main.innerHTML += `  
     <div class="card card-bo mt-3 mb-4" >
     <img src="../assests/vectorImage.png" class="card-img-top" alt="...">
     <div class="card-body">
-        <h5 class="card-title" id="productName">${arr[i].resturantName.toUpperCase()}</h5>
-    <button id=${arr[i].categories} value=${JSON.stringify(arr[i].categories)} class="btn btn-warning btn-dis" onclick=${'(resturants(value))'} >GOTO Resturant</button>
+        <h5 class="card-title" id="productName">${arr[i][Object.keys(arr[i])].resturantName.toUpperCase()}</h5>
+    <button id=${arr[i][Object.keys(arr[i])].categories} value=${JSON.stringify(arr[i][Object.keys(arr[i])].categories)} class="btn btn-warning btn-dis" onclick=${'(resturants(value))'} >GOTO Resturant</button>
     </div>
 </div>  `
 

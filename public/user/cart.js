@@ -6,6 +6,7 @@ if (carts != null) {
     allcarts = JSON.parse(carts);
 
 }
+console.log(allcarts);
 
 var values = document.getElementById('cartProducts');
 
@@ -40,6 +41,7 @@ let buy = () => {
             itemName: allcarts[i].itemName,
             Price: allcarts[i].price,
             Total: final,
+            count:0,
             status: "Pending"
         }
         const a = localStorage.getItem("uid")
